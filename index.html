@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PaSE Covid-19 App</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>    
+<link rel="stylesheet" href="main.css">
+</head>
+    <body>
+<div class="container">
+    <header>
+<nav class="navbar navbar-expand-lg static-top">
+<div class="container">
+<a class="navbar-brand" href="#">
+ <img  class="logo" src="logo.png" alt="logo" width="30px" height="30px">
+</a>
+</div>
+</nav>
+    </header class="jumbotron">
+    <div class="container pt-4">
+<div class="row">
+<div class="col-3 pt-4">
+<div class="card shadow p-3 mb-5 rounded bg-primary">
+    <h3>Total Cases</h3>
+    <h4>1500000</h4>
+</div>
+</div>
+<div class="col-3 pt-4">
+    <div class="card shadow p-3 mb-5 rounded bg-success">
+        <h3>Total Cases</h3>
+        <h4>1500000</h4>
+    </div>
+    </div>
+    <div class="col-3 pt-4">
+        <div class="card shadow p-3 mb-5 rounded bg-warning">
+            <h3>Total Cases</h3>
+            <h4>1500000</h4>
+        </div>
+        </div>
+        <div class="col-3 pt-4">
+<div class="card shadow p-3 mb-5 rounded bg-secondary">
+    <h3>Total Cases</h3>
+    <h4>1500000</h4>
+</div>
+</div>
+<script>
+getJSON('http://time.jsontest.com',  function(err, ndata) {
+    
+    if (err != null) {
+        console.error(err);
+    } else {    
+var text = `Date: ${ndata.date}
+Time: ${ndata.time}
+Unix time: ${ndata.milliseconds_since_epoch}`
+console.log(text);
+    }
+});
+    </script>
+</div>
+    </div>
+    <div class="container pt-5">
+<div class="row row-fluid justify-content-center align-items-center">
+<div class="col-8">
+<table class="table table-striped table-hover align-middle">
+<thead class="thead-dark">
+<tr>
+    <th scope="col">Countries</th>
+    <th scope="col">Active Cases</th>
+    <th scope="col">Recovered</th>
+    <th scope="col">Total Deaths</th>
+    <th scope="col">Total Cases</th>
+</tr>    
+</thead>
+<tbody class="result"></tbody>
+<script>
+$.ajax({
+  type: 'GET',
+  url: 'http://127.0.0.1:5000/api/v1',
+  dataType: 'json',
+  success: function (response) {
+    var trHTML = '';
+    for(var f=0;f<response.length;f++) {
+      trHTML += '<tr><td>' + response[f]['Country']+'</td><td>'+response[f]['Active'] +'</td><td>'+response[f]['Recovered']+'</td><td>'+response[f]['Deaths']+'</td><td>'+response[f]['Confirmed']+'</td></tr>';
+     }
+    $('.result').html(trHTML); 
+    $( ".spin-grid" ).removeClass( "fa-spin" );
+  }
+});
+</script>
+</table>
+</div>
+<div class="col-4">
+<div class="row row-fluid justify-content-center align-items-center">
+<div class="col w-100 h-50 pt-4">
+<div class="card">
+<div class="card-body">
+    <div class="text-center">
+        <button class="card-title btn btn-info">Health Tips</button>
+    </div>
+
+</div>
+
+</div>
+</div>
+</div>
+<div class="col w-100 h-50 pt-4">
+    <div class="card">
+    <div class="card-body">
+        <div class="text-center">
+            <button class="card-title btn btn-info">Health Tips</button>
+        </div>
+    
+    </div>
+    
+    </div>
+    </div>
+</div>
+</div>
+    </div>
+</div>
+    </body>
+</html>
